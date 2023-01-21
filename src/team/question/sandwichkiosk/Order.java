@@ -4,6 +4,11 @@ import java.util.Scanner;
 
 public class Order {
 
+	private SandwichDTO[] orderSandwich = new SandwichDTO[5];
+	private String[] orderDrink = new String[10];
+	private int sIndex = 0; 
+	private int dIndex = 0; 
+	
 	Scanner sc = new Scanner(System.in);
 	
 	
@@ -38,8 +43,6 @@ public class Order {
 		
 		return order;
 	}
-
-	
 	
 	
 }

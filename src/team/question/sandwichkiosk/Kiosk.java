@@ -4,13 +4,16 @@ import java.util.Scanner;
 
 public class Kiosk {
 
-	private String selectSandwich;
-	private String selectDrink;
+	private String[] selectSandwich = new String[10];
+	private String[] selectDrink = new String[10];
+	private int sindex = 0;
+	private int dindex = 0;
 
 	Scanner sc = new Scanner(System.in);
 
 	Sandwich sandwich = new Sandwich();
 	SandwichDTO[] sarr = sandwich.setSandwich();
+	SandwichDTO[] orderSandwich;
 
 	Drink drink = new Drink();
 	String[] darr = drink.getDrink();
@@ -66,8 +69,10 @@ public class Kiosk {
 
 			boolean yn = order.isChoose(); //샌드위치 주문 확정?
 
+
 			if(yn) { //확정할거임
-				selectSandwich = sarr[no - 1].getName(); //그러면 최종 샌드위치 초기화
+				selectSandwich[sindex] = sarr[no - 1].getName();
+				sindex++;
 				if(order.drinkOrder()) { //음료주문도 할거임
 					drinkMenu();
 					break; //음료메뉴창으로
@@ -101,11 +106,12 @@ public class Kiosk {
 			case 9 : System.out.println("메인 메뉴로 돌아갑니다."); return;
 			default : System.out.println("잘못된 번호를 선택하셨습니다. 다시 입력해주세요."); break;
 			}
-			
+
 			boolean yn = order.isChoose(); // 결정함?
-			
+
 			if(yn) { // 결정하면
-				selectDrink = darr[no - 1]; //음료최종선택
+				selectDrink[dindex] = darr[no - 1]; //음료최종선택
+				dindex++;
 				return; //메인메뉴로
 			} else { // 선택취소
 				continue;
@@ -116,12 +122,28 @@ public class Kiosk {
 
 	public void showOrder() {
 
-		if (selectSandwich == null && selectDrink == null) {
-			System.out.println("선택하신 메뉴는 없습니다.");
+		System.out.println("========== 샌드위치 주문 ===========");
+
+		if(selectSandwich[0] == null) {
+			System.out.println("텅~");
 		} else {
-			System.out.println("선택하신 메뉴는 " + selectSandwich + "샌드위치 " + selectDrink + "입니다.");
+			for(int i = 0; i < selectSandwich.length; i++) {
+				if(selectSandwich[i] != null) {
+					System.out.println(selectSandwich[i]);
+				}
+			}
 		}
-		return;
+
+		System.out.println("============ 음료 주문 ============");
+		if(selectDrink[0] == null) {
+			System.out.println("텅~");
+		} else {
+			for(int i = 0; i < selectDrink.length; i++) {
+				if(selectDrink[i] != null) {
+					System.out.println(selectDrink[i]);
+				}
+			}
+		}
 	}
 
 }
